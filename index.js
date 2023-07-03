@@ -6,7 +6,7 @@ async function setup(){
     try{
         await exec.exec('npm i -g surge')
         const token =  core.getInput('auth-token')
-        await exec.exec(`export SURGE_TOKEN=${token}`)
+        await exec.exec('export',[`SURGE_TOKEN=${token}`])
     }
     catch(err){
         core.setFailed(err.message)
@@ -18,6 +18,7 @@ async function run(){
         const domain = core.getInput('domain')
         const path = core.getInput('path')
         await setup();
+        
         let output = ''
         let errors = ''
 
