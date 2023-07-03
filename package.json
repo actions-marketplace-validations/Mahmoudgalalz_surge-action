@@ -1,0 +1,22 @@
+{
+  "name": "surge-action",
+  "version": "0.0.1",
+  "description": "Surge action for auto deployment your project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "CI/CD",
+    "auto-deployment",
+    "surge",
+    "React",
+    "Client-side"
+  ],
+  "author": "Mahmoud Galal <krooking0@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^1.10.0",
+    "@actions/exec": "^1.1.1"
+  }
+}
