@@ -4,11 +4,12 @@ const tc = require('@actions/tool-cache')
 const options ={};
 
 async function setup(){
-    const surgePath = await tc.downloadTool('https://github.com/sintaxi/surge/archive/refs/tags/v0.19.0.zip')
-    const surgeExtractedFolder = await tc.extractZip(surgePath, '~/sg')
-    const surgeCacheDir = await tc.cacheDir(surgeExtractedFolder,'surge','0.19.0')
-    const surgeDir = tc.find('surge','0.19.0')
-    core.addPath(surgeDir)
+    try{
+        await exec.exec('npm',['install','-g','surge'],{ignoreReturnCode:true})
+    }
+    catch(err){
+        core.setFailed(err.message)
+    }
 }
 
 async function run(){
