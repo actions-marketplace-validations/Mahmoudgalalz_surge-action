@@ -1,18 +1,15 @@
 name: 'Surge Github Action'
 description: 'Auto Deploy your project on push with Surge.sh'
 inputs:
-  auth-token:  # id of input
-    description: 'Your surge token'
-    required: true
   domain:
     description: 'the desired domain name'
-    required: true
+    default: '_'
   path:
     description: 'the project build output dir'
     default: './dist'
 
 outputs:
-  domain: # id of output
+  domain:
     description: 'the published domain'
 runs:
   using: 'node16'

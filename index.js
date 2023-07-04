@@ -1,12 +1,20 @@
 const core = require('@actions/core')
 const exec = require('@actions/exec')
+const tc = require('@actions/tool-cache')
 const options ={};
 
 async function setup(){
     try{
-        await exec.exec('npm i -g surge')
-        const token =  core.getInput('auth-token')
-        await exec.exec('export',[`SURGE_TOKEN=${token}`])
+        const surgeDir = tc.find('surge','0.19.0')
+        if(typeof surgeDir === 'string'){
+            core.addPath(surgeDir)
+        }
+        else{
+            const surgePath = await tc.downloadTool('https://github.com/sintaxi/surge/archive/refs/tags/v0.19.0.zip')
+            const surgeExtractedFolder = await tc.extractZip(surgePath, '~/sg')
+            const surgeCacheDir = await tc.cacheDir(surgeExtractedFolder,'surge','0.19.0')
+            core.addPath(surgeCacheDir)
+        }
     }
     catch(err){
         core.setFailed(err.message)
@@ -29,6 +37,10 @@ async function run(){
             stderr:(data)=>{
                 errors+=data.toString()
             }
+        }
+        
+        if(domain === '_'){
+            await exec.exec('surge',[`${path}`,`${domain}`],options)
         }
         await exec.exec('surge',[`${path}`,'--domain',`${domain}`],options)
         core.setOutput('domain',output)
