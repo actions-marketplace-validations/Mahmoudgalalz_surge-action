@@ -4,7 +4,6 @@ const tc = require('@actions/tool-cache')
 const options ={};
 
 async function setup(){
-    try{
         const surgeDir = tc.find('surge','0.19.0')
         if(typeof surgeDir === 'string'){
             core.addPath(surgeDir)
@@ -15,10 +14,6 @@ async function setup(){
             const surgeCacheDir = await tc.cacheDir(surgeExtractedFolder,'surge','0.19.0')
             core.addPath(surgeCacheDir)
         }
-    }
-    catch(err){
-        core.setFailed(err.message)
-    }
 }
 
 async function run(){
@@ -38,7 +33,7 @@ async function run(){
                 errors+=data.toString()
             }
         }
-        
+
         if(domain === '_'){
             await exec.exec('surge',[`${path}`,`${domain}`],options)
         }
