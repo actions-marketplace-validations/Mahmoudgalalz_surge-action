@@ -13,8 +13,7 @@ outputs:
     description: 'the published domain'
 runs:
   using: 'node16'
-  main: 'index.js'
+  main: 'dist/index.js'
 branding:
   icon: cloud
   color: 'green'
-  
