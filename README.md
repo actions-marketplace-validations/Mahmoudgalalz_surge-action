@@ -13,10 +13,26 @@ supporting for custom domains is coming soon
 ### `env token`
 you have to use surge and have account
 
-so you have to insall it `npm i -g surge`
+
+so you have to insall it 
+
+`npm i -g surge`
+
+
 then `surge login` will let you create an account 
 
+
 then get your token `surge token`
+
+```yaml
+- name: deploying to surge
+        uses: mahmoudgalalz/surge-action@v0.1.x # for spcific release take a look at the release tags
+        with:
+          domain: 'action_with_surge.surge.sh' # you should spcifiy a domain that no one has it to avoid errors
+          path: './dist' # this is the deafult value you can use what your build tool suggest
+        env:
+          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+```
 
 **Required** the SURGE_TOKEN is used to authenticate on your behalf.
 
@@ -56,7 +72,7 @@ jobs:
       - name: deploying to surge
         uses: mahmoudgalalz/surge-action@v0.1.5
         with:
-          domain: 'ghtop.surge.sh'
+          domain: 'action_with_surge.surge.sh'
           path: './dist'
         env:
           SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
